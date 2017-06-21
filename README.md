@@ -5,7 +5,7 @@ Convert XLSX to JSON and works well with merged cells.
 ## Getting started
 
 ```bash
-$ npm i -S xlsx2json
+$ npm i -S cupools/xlsx2json
 ```
 
 ```js
@@ -13,9 +13,9 @@ const fs = require('fs')
 const xlsx2json = require('xlsx2json')
 
 const workbook = fs.readFileSync('./test/fixtures/raw.xlsx')
-const json = xlsx2json(workbook, 'sheetName')
+const list = xlsx2json(workbook, 'sheetName')
 
-console.log(json)
+console.log(list)
 ```
 ## Test
 

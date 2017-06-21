@@ -10,12 +10,13 @@ const SEP = '__SEP__'
  */
 function xlsx2json(raw, name) {
   const workbook = XLSX.read(raw)
-  return workbook.SheetNames
-    .filter(sheetName => (sheetName ? name === sheetName : true))
+  const json = workbook.SheetNames
+    .filter(sheetName => (name ? name === sheetName : true))
     .reduce(
       (mem, sheetName) => ({ ...mem, [sheetName]: parse(workbook.Sheets[sheetName]) }),
       {}
     )
+  return name ? json[name] : json
 }
 
 function parse(sheet) {
@@ -57,7 +58,7 @@ function parse(sheet) {
  * @return {Function} correct
  */
 function correctMerges(mergesInfo) {
-  const store = mergesInfo.reduce((mem, item) => {
+  const store = (mergesInfo || []).reduce((mem, item) => {
     const { s, e } = item
     const { c: sc, r: sr } = s
     const { c: ec, r: er } = e

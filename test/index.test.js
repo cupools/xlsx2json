@@ -9,6 +9,14 @@ describe('index', () => {
   it('should work', () => {
     const buffer = fs.readFileSync('test/fixtures/raw.xlsx')
     const list = xlsx4conf(buffer)
-    console.log(list)
+
+    list.should.have.property('download')
+  })
+
+  it('should work', () => {
+    const buffer = fs.readFileSync('test/fixtures/raw.xlsx')
+    const list = xlsx4conf(buffer, 'download')
+
+    list.should.be.lengthOf(7)
   })
 })
