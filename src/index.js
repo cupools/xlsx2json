@@ -1,6 +1,7 @@
 const XLSX = require('xlsx')
 
-const SEP = '__SEP__'
+const FS_SEP = '__SEP__'
+const RS_SEP = '__RETURN_LINE__'
 
 /**
  * convert xlsx to json
@@ -21,8 +22,8 @@ function xlsx2json(raw, name) {
 
 function parse(sheet) {
   const mergesInfo = sheet['!merges']
-  const csv = XLSX.utils.sheet_to_csv(sheet, { FS: SEP })
-  const table = csv.split('\n').slice(0, -1).map(rowstr => rowstr.split(SEP))
+  const csv = XLSX.utils.sheet_to_csv(sheet, { FS: FS_SEP, RS: RS_SEP })
+  const table = csv.split(RS_SEP).slice(0, -1).map(rowstr => rowstr.split(FS_SEP))
 
   const correct = correctMerges(mergesInfo)
   const get = (col, row) => {
